@@ -7,7 +7,7 @@ import org.apache.commons.lang3.RandomStringUtils
 import java.security.SecureRandom
 
 class FuncTestUtils {
-    static final DEFAULT_BASE_URL = System.getProperty("host")
+    static DEFAULT_BASE_URL = System.getProperty("sc-base-url")
     static final DEFAULT_PLAY_BASE_URL = "http://localhost:8080"
     static final int TEN_SECONDS = 1000000
 
@@ -16,6 +16,9 @@ class FuncTestUtils {
     private static final Random SECURE_RANDOM = new SecureRandom();
 
     static String getScBaseUrl() {
+        if (DEFAULT_BASE_URL == null) {
+            System.getProperties().put("sc-base-url", "http://192.168.31.116:8380")
+        }
         System.getProperty("sc-base-url", DEFAULT_BASE_URL)
     }
 

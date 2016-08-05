@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="FunctionalTest" verbose="1" parallel="methods" thread-count="50">
-    <packages>
-        <package name="com.baoda.test"/>
-    </packages>
-
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="baoda-api-test" verbose="1" parallel="methods" thread-count="50">
+    <test name="all-tests">
+        <packages>
+            <package name="com.baoda.test"/>
+        </packages>
+    </test>
 </suite>
