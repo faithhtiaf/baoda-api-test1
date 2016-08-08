@@ -20,6 +20,8 @@
         <maven.test.skip>false</maven.test.skip>
         <groovy.version>2.1.8</groovy.version>
         <suiteXmlFile>testng.xml</suiteXmlFile>
+        <build.vcs.number>000000</build.vcs.number>
+        <version.GMaven>1.4</version.GMaven>
     </properties>
 
     <dependencies>
@@ -57,9 +59,10 @@
             <plugin>
                 <groupId>org.codehaus.gmaven</groupId>
                 <artifactId>gmaven-plugin</artifactId>
-                <version>1.4</version>
+                <version>${version.GMaven}</version>
                 <configuration>
                     <providerSelection>1.8</providerSelection>
+                    <source>1.8</source>
                 </configuration>
                 <executions>
                     <execution>
@@ -72,6 +75,57 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--<plugin>
+                <groupId>ch.fortysix</groupId>
+                <artifactId>maven-postman-plugin</artifactId>
+                <version>0.1.6</version>
+                <executions>
+                    <execution>
+                        <id>send_an_email</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>send-mail</goal>
+                        </goals>
+                        <inherited>true</inherited>
+
+                    </execution>
+
+                </executions>
+                <configuration>
+                    <from>changchun.zheng@baoda8.com</from>
+                    <mailhost>smtp.baoda8.com</mailhost>
+                    <mailport>25</mailport>
+                    <mailAltConfig>false</mailAltConfig>
+                    <mailuser>changchun.zheng@baoda8.com</mailuser>
+                    <mailpassword>server121</mailpassword>
+
+                    <receivers>
+                        <receiver>wzfz94264@163.com</receiver>
+                    </receivers>
+
+                    <subject>Integration Test Results</subject>
+                    <htmlMessage>
+                        <![CDATA[
+                         <p>
+                             We have new integration test results for:
+                                build: ${project.groupId}:${project.artifactId}:${project.version}
+                                rev: ${build.vcs.number}
+
+                             See attached failsafe report.
+                         </p>
+                         <br>
+                       ]]>
+                    </htmlMessage>
+                    <fileSets>
+                        <fileSet>
+                            <directory>${project.build.directory}/failsafe-reports</directory>
+                            <includes>
+                                <include>**/emailable-report.html</include>
+                            </includes>
+                        </fileSet>
+                    </fileSets>
+                </configuration>
+            </plugin>-->
         </plugins>
     </build>
 
