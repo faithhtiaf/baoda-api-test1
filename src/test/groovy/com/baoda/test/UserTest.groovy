@@ -48,6 +48,10 @@ class UserTest {
 
     }
 
+    public void changepwd(){
+
+    }
+
 
 //public void delete(){
 //    def login=login()

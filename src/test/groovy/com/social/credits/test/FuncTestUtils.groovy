@@ -90,7 +90,7 @@ class FuncTestUtils {
                 "username": "forever@mailinator.com",
                 "password": "12345678"
         ]
-        def res=restClient().post(path: API_PATH+"/user/login",contentType: JSON,body: payload)
+        def res=restClient().post(path: API_PATH+"/user/login",contentType: JSON,body: payload,headers:header)
         def header = [
                 "sc-token": res.headers."sc-token"
         ]
