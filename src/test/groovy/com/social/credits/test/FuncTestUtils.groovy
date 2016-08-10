@@ -26,9 +26,6 @@ class FuncTestUtils {
         System.getProperty("sc-base-url", DEFAULT_BASE_URL)
     }
 
-    static String getPlayBaseUrl() {
-        System.getProperty("play-base-url", DEFAULT_PLAY_BASE_URL)
-    }
 
     static RESTClient restClient() {
         def restClient = new RESTClient(getScBaseUrl())
@@ -85,16 +82,15 @@ class FuncTestUtils {
 
 
 
-    static def login(){
-        def payload=[
-                "username": "forever@mailinator.com",
-                "password": "12345678"
-        ]
-        def res=restClient().post(path: API_PATH+"/user/login",contentType: JSON,body: payload)
+    static def login(payload,headers=null){
+
+        def res=restClient().post(path: API_PATH+"/user/login",contentType: JSON,body: payload,headers:headers)
         def header = [
-                "sc-token": res.headers."sc-token"
+                "scb-user-token": res.headers."scb-user-token"
         ]
         res.responseData.headers=header;
+
+        print(res.responseData)
         return res
 
     }
@@ -119,8 +115,8 @@ class FuncTestUtils {
                 "email": resp.responseData.email,
                 "phone": resp.responseData.phone,
                 "nickname": resp.responseData.nickname,
-                "isEmailBind": false,
-                "isPhoneBind": false,
+                "isEmailBind": resp.responseData.isEmailBind,
+                "isPhoneBind": resp.responseData.isPhoneBind,
                 "lastLoginDate": resp.responseData.lastLoginDate,
                 "loginTime": resp.responseData.loginTime,
                 "status":resp.status
@@ -129,6 +125,31 @@ class FuncTestUtils {
 
         ]
     }
+
+
+
+    static def isActive(path,param){
+        def resp;
+        try{
+            resp=restClient().get(path:path,query:param)
+        }catch (HttpResponseException e){
+            resp = e.getResponse();
+        }
+        println(resp.data);
+
+        return [
+                id: resp.headers.id,
+                email:  resp.headers.email,
+                nickname:  resp.headers.nickname,
+                isEmailBind: resp.headers.isEmailBind,
+                isPhoneBind: resp.headers.isPhoneBind,
+                lastLoginDate: resp.headers.lastLoginDate,
+                loginTime: resp.headers.loginTime,
+                "status":resp.status
+        ]
+    }
+
+
 }
 
 
