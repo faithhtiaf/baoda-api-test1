@@ -89,11 +89,11 @@ class FuncTestUtils {
                 "scb-user-token": res.headers."scb-user-token"
         ]
         res.responseData.headers=header;
-
-        print(res.responseData)
         return res
-
     }
+
+
+
 
 
 
@@ -135,7 +135,7 @@ class FuncTestUtils {
         }catch (HttpResponseException e){
             resp = e.getResponse();
         }
-        println(resp.data);
+       // println(resp.data);
 
         return [
                 id: resp.headers.id,
