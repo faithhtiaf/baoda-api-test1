@@ -61,6 +61,7 @@ class FuncTestUtils {
         return RandomStringUtils.random(len, 0, chars.length, false, false, chars, SECURE_RANDOM);
     }
 
+
     static def getvalidatedcode(){
         def  res=restClient().post(path:API_PATH+"/captcha/pic")
         return res
